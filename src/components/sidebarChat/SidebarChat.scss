@@ -1,0 +1,25 @@
+.sidebar-chat{
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid rgb(153, 150, 150);
+
+    &-avatar{
+      margin: 1rem 2rem;
+    }
+
+    &-content{
+        margin: 1rem 1rem;
+        position: relative;
+        width: inherit;
+
+        p{
+            position: absolute;
+            top: 5px;
+            right: 0px;
+        }
+
+    }
+}
