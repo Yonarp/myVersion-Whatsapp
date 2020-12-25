@@ -1,5 +1,5 @@
 .sidebar{
-    width: 35%;
+    flex: .35;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -19,6 +19,7 @@
     }
     
     &-input{
+        margin: 0 1rem;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -27,6 +28,7 @@
         width: 40%;
         padding: 1rem 2rem;
         border-radius: 10rem;
+        flex: 1;
        
 
         input{
