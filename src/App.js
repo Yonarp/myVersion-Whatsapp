@@ -31,7 +31,6 @@ function App() {
     <div className="App">
       {
        user ? <Messenger/>:<Login/>
-
       }
     </div>
   );
