@@ -1,5 +1,6 @@
 .sidebar{
     flex: .35;
+    width: auto;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -25,7 +26,6 @@
         justify-content: flex-start;
         align-items: center;
         background: black;
-        width: 40%;
         padding: 1rem 2rem;
         border-radius: 10rem;
         flex: 1;
@@ -40,6 +40,7 @@
         }
     }
     &-chats{
+        width: 100%;
         overflow: auto;
         scrollbar-width: none;
         &::-webkit-scrollbar{

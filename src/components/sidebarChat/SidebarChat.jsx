@@ -1,13 +1,23 @@
 import { Avatar } from '@material-ui/core';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import {  setChat } from '../../features/chatSlice';
+import { db } from '../../firebase/firebase';
 import './SidebarChat.scss';
 
 function SidebarChat({id,chatName}) {
-/*     const chat = useSelector(selectChatName)
-    const chatId = useSelector(selectChatId) */
     const dispatch = useDispatch()
+    const [chatData,setChatData] = useState([])
+       
+    useEffect(() => {
+      db.collection('chats').doc(id).collection('messages').orderBy('timestamp','desc').onSnapshot((snapshot) => {
+        setChatData(snapshot.docs.map((doc) => (
+            doc.data()
+            )
+        ))
+      }) 
+
+    }, [id])
 
     function setChatName() {
         dispatch(setChat({
@@ -18,11 +28,11 @@ function SidebarChat({id,chatName}) {
 
     return (
         <div className='sidebar-chat' onClick = {setChatName}>
-            <Avatar className='sidebar-chat-avatar'/>
+            <Avatar className='sidebar-chat-avatar' src={chatData[0]?.userImage}/>
             <div className="sidebar-chat-content">
                 <h2>{chatName}</h2>
-                <h3>This is the last message in the chat</h3>
-                <p>TimeStamp here..</p>
+                <h3>{chatData[0]?.message}</h3>
+                <p>{new Date(chatData[0]?.timestamp?.toDate()).toLocaleString()}</p>
             </div>
         </div>
     )
