@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
 import { db,auth } from '../../firebase/firebase'
+import PrivateChats from '../privateChats/PrivateChats'
 import SidebarChat from '../sidebarChat/SidebarChat'
 import './Sidebar.scss'
 
@@ -12,8 +13,8 @@ import './Sidebar.scss'
 function Sidebar() {
     const user = useSelector(selectUser);
     const [chats,setChats] = useState([]);
-    const [existingUsers,setExistingUsers] = useState()
-
+    const [existingId,setExistingId] = useState()
+    
     useEffect(() => {
         db.collection('chats').onSnapshot((snapshot) => {
             setChats(
@@ -24,6 +25,9 @@ function Sidebar() {
                     }
                     )) 
             )
+        })
+        db.collection('private_chats').get().then((snapshot)=> {
+            setExistingId(snapshot.docs.map((item) => item.data()))
         })
     },[])
 
@@ -37,15 +41,32 @@ function Sidebar() {
     }
 
      async function createPersonal (){
-         const id = prompt('Please Enter the id here ');
+         let flag = 0;
+       const id = prompt('Please Enter the id here ');
+       if(id){
+       existingId?.forEach(ids => {
+           if((id === ids.uid1 ) || (id === ids.uid2))
+           {
+                flag = 1
+                alert('convo already exists');
+                return;
+           }
+        } )
+        if(flag === 1) return;
+       
        const snapshot = await db.collection('users').doc(id).get();
-       const arr = snapshot.data();
-       console.log(arr);
-       setExistingUsers(arr);
 
+       const arr = snapshot?.data()?.uid;
+        if(arr){
+            db.collection('private_chats').doc().set({
+                uid1:user.uid,
+                uid2:arr
+            })
+        }
     }
-
-    console.log('EXISTING', existingUsers);
+    else return;
+}
+    console.log(existingId);
 
     return (
         <div className= 'sidebar'>
@@ -72,6 +93,10 @@ function Sidebar() {
 
                )}
 
+            </div>
+            <div className="sidebar-private-chats">
+
+                <PrivateChats/>
             </div>
         </div>
     )
