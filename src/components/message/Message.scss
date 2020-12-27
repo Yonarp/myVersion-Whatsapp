@@ -1,6 +1,18 @@
 .text{
+    display: flex;
     padding: 1rem 2rem;
-    p{
+    position: relative;
+    margin: 1rem ;
+    width: fit-content;
+    flex-direction: row;
+    &-photo{
+        margin: 1rem 1rem 0rem 0rem;
+        order: 0;
+        justify-content: baseline;
+        align-items: baseline;
+
+    }
+    &-message{
         display: inline-block;
         background: lightblue;
         width: auto;
@@ -8,4 +20,23 @@
         font-size: 2rem;
         border-radius: 1.2rem 1.2rem 1.2rem 0rem;
     }
+    small{
+        position: absolute;
+        top: 100%;
+    }
+    
+}
+
+.user{
+     margin-left: auto;
+   .text{
+       &-photo{
+        order: 1;
+        margin: 1rem 0rem 0rem 1rem;
+    }
+    &-message{
+        border-radius: 1.2rem 1.2rem 0rem 1.2rem;
+    }
+   }
+   
 }

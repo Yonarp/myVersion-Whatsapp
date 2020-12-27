@@ -52,8 +52,8 @@ function Chat() {
                 <h2>Details</h2>
             </div>
             <div className="chat-messages">
-                {messages.map((message) => (
-                    <Message key = {message.id} data = {message.data}/>
+                {messages.map((message, idx) => (
+                    <Message key = {message.id} data = {message.data} isLast={(idx === messages?.length - 1)}/>
                 ))}
             </div>
 

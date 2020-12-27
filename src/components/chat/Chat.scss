@@ -19,6 +19,8 @@
     }
 
     &-messages{
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
         flex: 1;
         overflow: scroll;
         scrollbar-width: none;
