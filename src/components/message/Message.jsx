@@ -1,5 +1,5 @@
 import { Avatar } from '@material-ui/core';
-import React, {useEffect, useRef, useCallback} from 'react'
+import React, {useEffect, useRef, useCallback, memo} from 'react'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import './Message.scss';
@@ -9,12 +9,11 @@ function Message({data, isLast}) {
     const bubbleRef = useRef();
 
     const scrollIntoView = useCallback(() => bubbleRef?.current?.scrollIntoView(), []);
-
     useEffect(() => {
         if(isLast){
             scrollIntoView();
         }
-    }, [isLast,scrollIntoView]);
+    }, [isLast, scrollIntoView]);
 
     return (
         <div ref={bubbleRef} className = {`text ${(user.email === data.email)? 'user': ''}`}>
@@ -25,4 +24,5 @@ function Message({data, isLast}) {
     )
 }
 
-export default Message
+
+export default memo(Message);

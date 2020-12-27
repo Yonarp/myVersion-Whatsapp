@@ -1,5 +1,5 @@
 import { Avatar, IconButton } from '@material-ui/core'
-import { CreateOutlined, Search } from '@material-ui/icons'
+import { ChatBubble, CreateOutlined, Search } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
@@ -12,6 +12,7 @@ import './Sidebar.scss'
 function Sidebar() {
     const user = useSelector(selectUser);
     const [chats,setChats] = useState([]);
+    const [existingUsers,setExistingUsers] = useState()
 
     useEffect(() => {
         db.collection('chats').onSnapshot((snapshot) => {
@@ -35,9 +36,20 @@ function Sidebar() {
         }
     }
 
+     async function createPersonal (){
+         const id = prompt('Please Enter the id here ');
+       const snapshot = await db.collection('users').doc(id).get();
+       const arr = snapshot.data();
+       console.log(arr);
+       setExistingUsers(arr);
+
+    }
+
+    console.log('EXISTING', existingUsers);
+
     return (
         <div className= 'sidebar'>
-      
+            
             <div className="sidebar-header">
                 <IconButton onClick={() => auth.signOut()}>
                 <Avatar src = {user.userImage}  className='sidebar-avatar'/>
@@ -48,6 +60,9 @@ function Sidebar() {
                 </div>
                 <IconButton variant = 'outlined' className="sidebar-button">
                     <CreateOutlined onClick = {createChat}/>
+                </IconButton>
+                <IconButton variant = 'outlined'>
+                    <ChatBubble onClick = {createPersonal}/>
                 </IconButton>
             </div>
             <div className="sidebar-chats">

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Login from './components/login/Login';
 import { login, logout, selectUser } from './features/userSlice';
-import { auth } from './firebase/firebase';
+import { auth, db } from './firebase/firebase';
 import Messenger from './pages/messenger/Messenger';
 
 function App() {
@@ -19,6 +19,14 @@ function App() {
           email: authUser.email,
           userImage: authUser.photoURL,
         }));
+        console.log(authUser);
+        db.collection('users').doc(authUser.uid).set({
+          displayName: authUser.displayName,
+          uid:authUser.uid,
+          email: authUser.email,
+          userImage: authUser.photoURL,
+        });
+
       }
       else{
         dispatch(logout());
@@ -37,3 +45,5 @@ function App() {
 }
 
 export default App;
+
+// users =>
