@@ -9,6 +9,7 @@
     align-items: center;
     width: inherit;
     border-bottom: 1px solid rgba($color: #000000, $alpha: .1);
+    transition: all .1s linear;
 
     &-avatar{
       margin: 1rem 2rem;
@@ -39,4 +40,18 @@
         }
 
     }
+    &:hover{
+        background: $primary-green;
+        transform: scale(1.1);
+        color: aliceblue;
+        p{
+            background: $background-white;
+            color: $primary-green;
+            margin-right: 1rem;
+        }
+    }
+  
+}
+.active{
+    background: $primary-green;
 }

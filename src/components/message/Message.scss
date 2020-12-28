@@ -22,6 +22,7 @@
         padding: 1rem 1rem;
         font-size: 1.5rem;
         border-radius: 1.2rem 1.2rem 1.2rem 0rem;
+        animation: expand .3s forwards;
     }
     small{
         position: absolute;
@@ -45,4 +46,16 @@
     }
    }
    
+}
+
+/* -------------------------ANIMATIONS HERE------------------- */
+
+@keyframes expand{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+
 }

@@ -1,5 +1,5 @@
-import { Avatar, IconButton } from '@material-ui/core'
-import { ChatBubble, CreateOutlined, Search } from '@material-ui/icons'
+import {  IconButton } from '@material-ui/core'
+import { ChatBubble, Create, Search } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../../features/userSlice'
@@ -9,6 +9,18 @@ import SidebarChat from '../sidebarChat/SidebarChat'
 import './Sidebar.scss'
 
 
+const createPrivateChat = async (id,user) => {
+    const snapshot = await db.collection('users').doc(id).get();
+
+    const userId = snapshot?.data()?.uid;
+     if(userId){
+         db.collection('private_chats').doc().set({
+             uid1:user.uid,
+             uid2:userId,
+         })
+     }
+ }
+ 
 
 function Sidebar() {
     const user = useSelector(selectUser);
@@ -40,32 +52,25 @@ function Sidebar() {
         }
     }
 
-     async function createPersonal (){
-         let flag = 0;
-       const id = prompt('Please Enter the id here ');
-       if(id){
-       existingId?.forEach(ids => {
-           if((id === ids.uid1 ) || (id === ids.uid2))
-           {
-                flag = 1
-                alert('convo already exists');
-                return;
-           }
-        } )
-        if(flag === 1) return;
-       
-       const snapshot = await db.collection('users').doc(id).get();
+    const findChatsWithId = (chatList, userId) =>  chatList?.filter(({uid1, uid2}) => uid1 === userId || uid2 === userId);
 
-       const arr = snapshot?.data()?.uid;
-        if(arr){
-            db.collection('private_chats').doc().set({
-                uid1:user.uid,
-                uid2:arr
-            })
-        }
+
+     async function createPersonal (){
+       const recepientId = prompt('Please Enter the id here ');
+       if(recepientId) {
+            const {uid} = user;
+            const userChats = findChatsWithId(existingId, uid);
+            const chatWithRecepient = findChatsWithId(userChats, recepientId);
+            console.log('CHAT WITH RECEP', chatWithRecepient);
+
+            if(chatWithRecepient?.length) {
+                alert('Conversation already exists');
+            } else {
+                createPrivateChat(recepientId,user); 
+            }
+       }
     }
-    else return;
-}
+
 
     /* function decide(ids){
         if((user.uid.toString() === ids.uid1) || (user.uid.toString() === ids.uid2))
@@ -79,20 +84,49 @@ function Sidebar() {
 
     return (
         <div className= 'sidebar'>  
+
             <div className="sidebar-header">
-                <IconButton onClick={() => auth.signOut()}>
-                <Avatar src = {user.userImage}  className='sidebar-avatar'/>
-                </IconButton>
-                <div className="sidebar-input">
-                    <Search style = {{color:'green'}} />
-                    <input type="search" placeholder='Search'/>
+
+                {/* -----------------User Details here---------------- */}
+                <div className="sidebar-header-user-details">
+
+              {/*   <IconButton onClick={() => auth.signOut()}>
+                    <Avatar src = {user.userImage}  className='sidebar-avatar' style={{
+                        height: '60px',
+                        width: '60px'
+                    }}/>
+                </IconButton> */}
+                
+                <div className="sidebar-avatar" onClick= {() => auth.signOut()}
+                    style={{backgroundImage:`url(${user.userImage})`}}>
                 </div>
+                    <h1>{user.displayName}</h1>
+                    <h2>{user.email}</h2>
+
+                </div>
+               
+
+                <div className="sidebar-input">
+                   
+                    <Search style = {{color:'#25D366'}} />
+                    <input type="search" placeholder='Search'/>
+
+                </div>
+
+                <div className="icon-buttons">
+
                 <IconButton variant = 'outlined' className="sidebar-button">
-                    <CreateOutlined onClick = {createChat} style = {{color:'green'}}/>
+
+                    <Create onClick = {createChat} style = {{color:'#25D366'}}/>
+
                 </IconButton>
+
                 <IconButton variant = 'outlined'>
-                    <ChatBubble onClick = {createPersonal} style = {{color:'green'}}/>
+
+                    <ChatBubble onClick = {createPersonal} style = {{color:'#25D366'}}/>
+
                 </IconButton>
+                </div>
             </div>
             <div className="sidebar-chats">
                {chats.map((chat) => (
@@ -103,9 +137,11 @@ function Sidebar() {
 
             </div>
             <div className="sidebar-private-chats"> 
-               {existingId.forEach(ids => {
-                    if((user.uid.toString() === ids.uid1) || (user.uid.toString() === ids.uid2)){
-                        <PrivateChats/>
+               {existingId.map(ids => {
+                    if((user.uid === ids.uid1) || (user.uid === ids.uid2)){
+                        return <PrivateChats/>;
+                    } else {
+                        return null;
                     }
                })
             }
