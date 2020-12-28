@@ -13,7 +13,7 @@ import './Sidebar.scss'
 function Sidebar() {
     const user = useSelector(selectUser);
     const [chats,setChats] = useState([]);
-    const [existingId,setExistingId] = useState()
+    const [existingId,setExistingId] = useState([]);
     
     useEffect(() => {
         db.collection('chats').onSnapshot((snapshot) => {
@@ -26,7 +26,7 @@ function Sidebar() {
                     )) 
             )
         })
-        db.collection('private_chats').get().then((snapshot)=> {
+        db.collection('private_chats').onSnapshot((snapshot) => {
             setExistingId(snapshot.docs.map((item) => item.data()))
         })
     },[])
@@ -66,24 +66,32 @@ function Sidebar() {
     }
     else return;
 }
+
+    /* function decide(ids){
+        if((user.uid.toString() === ids.uid1) || (user.uid.toString() === ids.uid2))
+        {   console.log('ids were matched')
+            return <PrivateChats key ={ids.id}/>
+        }
+    } */
+
+
     console.log(existingId);
 
     return (
-        <div className= 'sidebar'>
-            
+        <div className= 'sidebar'>  
             <div className="sidebar-header">
                 <IconButton onClick={() => auth.signOut()}>
                 <Avatar src = {user.userImage}  className='sidebar-avatar'/>
                 </IconButton>
                 <div className="sidebar-input">
-                    <Search style = {{color:'blue'}} />
+                    <Search style = {{color:'green'}} />
                     <input type="search" placeholder='Search'/>
                 </div>
                 <IconButton variant = 'outlined' className="sidebar-button">
-                    <CreateOutlined onClick = {createChat}/>
+                    <CreateOutlined onClick = {createChat} style = {{color:'green'}}/>
                 </IconButton>
                 <IconButton variant = 'outlined'>
-                    <ChatBubble onClick = {createPersonal}/>
+                    <ChatBubble onClick = {createPersonal} style = {{color:'green'}}/>
                 </IconButton>
             </div>
             <div className="sidebar-chats">
@@ -94,9 +102,14 @@ function Sidebar() {
                )}
 
             </div>
-            <div className="sidebar-private-chats">
+            <div className="sidebar-private-chats"> 
+               {existingId.forEach(ids => {
+                    if((user.uid.toString() === ids.uid1) || (user.uid.toString() === ids.uid2)){
+                        <PrivateChats/>
+                    }
+               })
+            }
 
-                <PrivateChats/>
             </div>
         </div>
     )

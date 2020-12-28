@@ -19,6 +19,9 @@ function App() {
           email: authUser.email,
           userImage: authUser.photoURL,
         }));
+
+
+
         console.log(authUser);
         db.collection('users').doc(authUser.uid).set({
           displayName: authUser.displayName,

@@ -1,10 +1,13 @@
+@import '../variables.scss';
+
 .sidebar{
     flex: .35;
     width: auto;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: gray;
+    background: $background-white;
+    box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.3);
 
     &-header{
         display: flex;
@@ -12,6 +15,8 @@
         align-items: center;
         justify-content: space-around;
         padding: 1rem;
+     
+     
 
     }
 
@@ -25,7 +30,6 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        background: black;
         padding: 1rem 2rem;
         border-radius: 10rem;
         flex: 1;
@@ -36,7 +40,7 @@
             outline: none;
             background: none;
             border: none;
-            color: aliceblue;
+            width: 90%;
         }
     }
     &-chats{

@@ -17,7 +17,7 @@ function Message({data, isLast}) {
 
     return (
         <div ref={bubbleRef} className = {`text ${(user.email === data.email)? 'user': ''}`}>
-            <Avatar src = {data.userImage} className='text-photo'/>
+            <Avatar src = {data.userImage} style={{height:'30px',width:'30px'}} className='text-photo'/>
             <p class = {`text-message`}> {data.message} </p>
             <small>{new Date(data.timestamp?.toDate()).toLocaleString()}</small>   
         </div>

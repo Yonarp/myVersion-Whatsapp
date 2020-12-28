@@ -1393,6 +1393,11 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.4.1.tgz#600f2275ff54739ad5ac0102f1467b8963cd5f71"
   integrity sha512-0yPjzuzGMkW1GkrC8yWsiN7vt1OzkMIi9HgxRmKREZl2wnNPOKo/yScTjXf/O57HM8dltqxPF6jlNLFVtc2qdw==
 
+"@fontsource/pt-sans@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/pt-sans/-/pt-sans-4.0.1.tgz#f206a0a25069c1bd40227b91e43a9af8ecc626cb"
+  integrity sha512-hyN2joEoZv2rUFhQdh0biZhZc/bnLJl13mHD1NKklmEEJE9Y8wzM7K+KS8gwroMGN3fvOgvvoEgeh+kcwoMVEQ==
+
 "@grpc/grpc-js@^1.0.0":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.2.2.tgz#ee4a7417fe15a686a8e369c36ec4c80678445c67"

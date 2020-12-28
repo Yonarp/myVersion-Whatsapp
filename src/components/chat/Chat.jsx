@@ -33,6 +33,7 @@ function Chat() {
 
     function submition(e){
         e.preventDefault();
+        if(input)
         db.collection('chats').doc(chatId).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             message: input,
@@ -48,7 +49,10 @@ function Chat() {
     return (
         <div className='chat'>
             <div className="chat-header">
+                <div className="chat-header-headings">
                 <h1>To:<span className='chat-header-contact'> {chatName} </span></h1>
+                <h2>Group Channel</h2>
+                </div>
                 <h2>Details</h2>
             </div>
             <div className="chat-messages">
