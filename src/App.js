@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
+import './App.scss';
 import Login from './components/login/Login';
 import { login, logout, selectUser } from './features/userSlice';
 import { auth, db } from './firebase/firebase';
@@ -9,6 +9,16 @@ import Messenger from './pages/messenger/Messenger';
 function App() {
    const user = useSelector(selectUser);
    const dispatch = useDispatch();
+
+   const [dark, setDark] = useState(false);
+
+   let themeClassName = 'light';
+   
+   if(dark){
+    themeClassName = 'dark';
+   } else {
+    themeClassName = 'light';
+   }
    
    useEffect(() => {
     auth.onAuthStateChanged((authUser)=> {
@@ -39,7 +49,7 @@ function App() {
   
    },[dispatch]);
   return (
-    <div className="App">
+    <div className={`App ${themeClassName}`}>
       {
        user ? <Messenger/>:<Login/>
       }

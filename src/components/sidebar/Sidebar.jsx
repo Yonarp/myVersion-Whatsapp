@@ -8,6 +8,14 @@ import PrivateChats from '../privateChats/PrivateChats'
 import SidebarChat from '../sidebarChat/SidebarChat'
 import './Sidebar.scss'
 
+/**
+ * Get all chats of the respective id.
+ * @param {Array} chatList - array of chats containing `uid1` and `uid2`
+ * @param {String} userId - id of any user
+ */
+const findChatsWithId = (chatList, userId) =>  chatList?.filter(({uid1, uid2}) => uid1 === userId || uid2 === userId);
+
+
 
 const createPrivateChat = async (id,user) => {
     const snapshot = await db.collection('users').doc(id).get();
@@ -19,6 +27,16 @@ const createPrivateChat = async (id,user) => {
              uid2:userId,
          })
      }
+ }
+
+
+ const createChat = () => {
+    const chatName = prompt("Enter The Chat Name Here");
+    if(chatName){
+        db.collection('chats').add({
+            chatName:chatName,
+        })
+    }
  }
  
 
@@ -39,47 +57,38 @@ function Sidebar() {
             )
         })
         db.collection('private_chats').onSnapshot((snapshot) => {
-            setExistingId(snapshot.docs.map((item) => item.data()))
+            setExistingId(snapshot.docs.map((item) => ({
+                id:item.id,
+                uid1: item.data().uid1,
+                uid2: item.data().uid2
+            })))
         })
     },[])
 
-    function createChat(){
-        const chatName = prompt("Enter The Chat Name Here");
-        if(chatName){
-            db.collection('chats').add({
-                chatName:chatName,
-            })
-        }
-    }
-
-    const findChatsWithId = (chatList, userId) =>  chatList?.filter(({uid1, uid2}) => uid1 === userId || uid2 === userId);
 
 
      async function createPersonal (){
+       // user input
        const recepientId = prompt('Please Enter the id here ');
+       
        if(recepientId) {
+            // User id
             const {uid} = user;
+            // Getting user chats
             const userChats = findChatsWithId(existingId, uid);
+            // User chats with recepient
+            console.log('USER CAHTS ==>' ,userChats)
             const chatWithRecepient = findChatsWithId(userChats, recepientId);
-            console.log('CHAT WITH RECEP', chatWithRecepient);
 
+            // Check if chat with recepient exists
             if(chatWithRecepient?.length) {
                 alert('Conversation already exists');
             } else {
-                createPrivateChat(recepientId,user); 
+                // If no chats exist, create a private chat.
+                createPrivateChat(recepientId, user); 
             }
        }
     }
-
-
-    /* function decide(ids){
-        if((user.uid.toString() === ids.uid1) || (user.uid.toString() === ids.uid2))
-        {   console.log('ids were matched')
-            return <PrivateChats key ={ids.id}/>
-        }
-    } */
-
-
     console.log(existingId);
 
     return (
@@ -89,13 +98,6 @@ function Sidebar() {
 
                 {/* -----------------User Details here---------------- */}
                 <div className="sidebar-header-user-details">
-
-              {/*   <IconButton onClick={() => auth.signOut()}>
-                    <Avatar src = {user.userImage}  className='sidebar-avatar' style={{
-                        height: '60px',
-                        width: '60px'
-                    }}/>
-                </IconButton> */}
                 
                 <div className="sidebar-avatar" onClick= {() => auth.signOut()}
                     style={{backgroundImage:`url(${user.userImage})`}}>
@@ -117,13 +119,13 @@ function Sidebar() {
 
                 <IconButton variant = 'outlined' className="sidebar-button">
 
-                    <Create onClick = {createChat} style = {{color:'#25D366'}}/>
+                    <Create onClick = {createChat}  classes={{root: 'sidebar-button-icon'}}/>
 
                 </IconButton>
 
-                <IconButton variant = 'outlined'>
+                <IconButton variant = 'outlined'  className="sidebar-button">
 
-                    <ChatBubble onClick = {createPersonal} style = {{color:'#25D366'}}/>
+                    <ChatBubble onClick = {createPersonal} classes={{root: 'sidebar-button-icon'}}/>
 
                 </IconButton>
                 </div>
@@ -139,7 +141,7 @@ function Sidebar() {
             <div className="sidebar-private-chats"> 
                {existingId.map(ids => {
                     if((user.uid === ids.uid1) || (user.uid === ids.uid2)){
-                        return <PrivateChats/>;
+                        return <PrivateChats key={ids.id} id={ids.id} {...ids}/>;
                     } else {
                         return null;
                     }
