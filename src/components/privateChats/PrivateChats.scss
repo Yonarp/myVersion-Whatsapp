@@ -1,0 +1,19 @@
+@import "~@fontsource/pt-sans/index.css";
+
+.private{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h4{
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        font-family: 'PT Sans';
+        background: #0fad79;
+        color: aliceblue;
+        padding: .3rem .7rem;
+        border-radius: .7rem;
+        box-shadow: 5px 5px 1px rgba($color: #000000, $alpha: .1);
+    }
+}
