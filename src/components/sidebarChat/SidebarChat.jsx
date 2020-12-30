@@ -22,7 +22,8 @@ function SidebarChat({id,chatName}) {
     function setChatName() {
         dispatch(setChat({
             chatName: chatName,
-            chatId:id 
+            chatId:id,
+            private: false 
         }))
     }
 

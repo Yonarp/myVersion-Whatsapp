@@ -1,40 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { selectChatId, selectChatName } from '../../features/chatSlice';
+import { checkIfPrivate, selectChatId, selectChatName } from '../../features/chatSlice';
 import { db } from '../../firebase/firebase';
 import firebase from 'firebase';
 import Message from '../message/Message';
 import './Chat.scss';
 import { selectUser } from '../../features/userSlice';
 
+
 function Chat() {
     const chatName = useSelector(selectChatName);
     const chatId = useSelector(selectChatId);
+    const isPrivate = useSelector(checkIfPrivate);
     const user = useSelector(selectUser);
     const [input,setInput] = useState('')
     const [messages,setMessages] = useState([])
 
-    useEffect(() => {
-        if(chatId)
-        {
-        db.collection('chats')
-        .doc(chatId)
-        .collection('messages')
-        .orderBy('timestamp' , 'asc')
-        .onSnapshot((snapshot) => {
-            setMessages(snapshot.docs.map((message) => ({
-                id:message.id,
-                data: message.data()
-            })
-            ))
-        })
-    }
-    }, [chatId])
-
-    function submition(e){
-        e.preventDefault();
-        if(input)
-        db.collection('chats').doc(chatId).collection('messages').add({
+    const throwMessages = (collection) => {
+        db.collection(collection).doc(chatId).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             message: input,
             uid: user.uid,
@@ -42,6 +25,48 @@ function Chat() {
             userImage: user.userImage,
             email: user.email
         })
+    }
+    
+    useEffect(() => {
+
+        const receiveMessages = (collection) => {
+            db.collection(collection)
+            .doc(chatId)
+            .collection('messages')
+            .orderBy('timestamp' , 'asc')
+            .onSnapshot((snapshot) => {
+                setMessages(snapshot.docs.map((message) => ({
+                    id:message.id,
+                    data: message.data()
+                })
+                ))
+            })
+        }
+
+        if(chatId)
+        {
+            if(isPrivate){
+                receiveMessages('private_chats')
+            }
+            else{
+                receiveMessages('chats');
+            }
+        }
+    }, [chatId,isPrivate])
+
+    function submition(e){
+
+        e.preventDefault();
+        if(input)
+        {
+            if(isPrivate){
+                throwMessages('private_chats');
+            }
+            else{
+                throwMessages('chats');
+            }
+        }
+      
         setInput('');
     }
 

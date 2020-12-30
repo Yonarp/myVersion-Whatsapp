@@ -136,10 +136,7 @@ function Sidebar() {
                )
 
                )}
-
-            </div>
-            <div className="sidebar-private-chats"> 
-               {existingId.map(ids => {
+                {existingId.map(ids => {
                     if((user.uid === ids.uid1) || (user.uid === ids.uid2)){
                         return <PrivateChats key={ids.id} id={ids.id} {...ids}/>;
                     } else {
