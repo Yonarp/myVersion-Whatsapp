@@ -30,8 +30,9 @@ const createPrivateChat = async (id,user) => {
  }
 
 
- const createChat = () => {
-    const chatName = prompt("Enter The Chat Name Here");
+const createChat = () => {
+    console.log('CLICKED');
+    const chatName = window.prompt("Enter The Chat Name Here");
     if(chatName){
         db.collection('chats').add({
             chatName:chatName,
@@ -89,7 +90,7 @@ function Sidebar() {
             }
        }
     }
-    console.log(existingId);
+
 
     return (
         <div className= 'sidebar'>  
@@ -104,6 +105,10 @@ function Sidebar() {
                 </div>
                     <h1>{user.displayName}</h1>
                     <h2>{user.email}</h2>
+                    <div className='user-uid'>
+                        <p>Your UID:</p>
+                        <h3>{user.uid}</h3>
+                        </div>
 
                 </div>
                
@@ -117,15 +122,15 @@ function Sidebar() {
 
                 <div className="icon-buttons">
 
-                <IconButton variant = 'outlined' className="sidebar-button">
+                <IconButton onClick = {createChat} variant = 'outlined' className="sidebar-button">
 
-                    <Create onClick = {createChat}  classes={{root: 'sidebar-button-icon'}}/>
+                    <Create   classes={{root: 'sidebar-button-icon'}}/>
 
                 </IconButton>
 
-                <IconButton variant = 'outlined'  className="sidebar-button">
+                <IconButton onClick = {createPersonal} variant = 'outlined'  className="sidebar-button">
 
-                    <ChatBubble onClick = {createPersonal} classes={{root: 'sidebar-button-icon'}}/>
+                    <ChatBubble  classes={{root: 'sidebar-button-icon'}}/>
 
                 </IconButton>
                 </div>

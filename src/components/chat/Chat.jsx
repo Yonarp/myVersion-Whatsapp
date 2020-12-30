@@ -15,6 +15,8 @@ function Chat() {
     const user = useSelector(selectUser);
     const [input,setInput] = useState('')
     const [messages,setMessages] = useState([])
+    const privateChat = 'Private Chat';
+    const groupChat = 'Group Chat';
 
     const throwMessages = (collection) => {
         db.collection(collection).doc(chatId).collection('messages').add({
@@ -76,7 +78,7 @@ function Chat() {
             <div className="chat-header">
                 <div className="chat-header-headings">
                 <h1>To:<span className='chat-header-contact'> {chatName} </span></h1>
-                <h2>Group Channel</h2>
+                <h2>{(isPrivate?privateChat:groupChat)}</h2>
                 </div>
                 <h2>Details</h2>
             </div>
@@ -90,9 +92,7 @@ function Chat() {
                 <form onSubmit={submition} className="chat-input" >
                     <input value={input} onChange={e => setInput(e.target.value) } type='text' placeholder='Message here'/>
                     <button type='submit'/>
-                </form>
-
-            
+                </form>            
         </div>
     )
 }

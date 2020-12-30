@@ -50,17 +50,14 @@
     }
 
     &-input{
-        background: $background-white;
-        border-radius: 1rem;
+        background: #e4e3e3;  
         box-shadow: 3px 3px 2px rgba($color: #000000, $alpha: .2), -2px -2px 2px rgba($color: #000000, $alpha: .2);
         padding: 2.5rem 2rem;
-        width: 90%;
-        margin: 1rem auto;
         text-align: center;
         input{
             border: none;
-            background: rgb(240, 238, 238);
-            padding: 1rem 1rem;
+            background: rgb(251, 251, 251);
+            padding: 1.5rem 2rem;
             border-radius: 10rem;
             outline: none;
             width: 90%;
