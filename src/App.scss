@@ -6,20 +6,19 @@
 }
 
 .dark{
-    --background: var(--black);
+    --background: #252323;
     --text: var(--white);
     --text-2: aliceblue;
-    --message-field-background: #e4e3e3;
-    --chat-description: rgb(229, 240, 224);
+    --chat-description: #28c395;
     --header-text: gray;
-    --primary-green: #25D366;
-    --primary-green-dark:#0fad79;
-    --chat-image: '../../img/whatsapp.jpg';
-    --search-bar-backround: rgb(241, 240, 239);
-    --message-bar-background: rgb(251, 251, 251);
-    --contact-message-background: rgb(243, 243, 243);
-    --user-message-background: linear-gradient(to right , #2ebf91, #60a4c3);
-    --private-chat-green: #0fad79;
+    --primary-green: #076344;
+    --primary-green-dark:rgb(24, 54, 44);
+    --search-bar-backround: #1a1818;
+    --message-field-background: #292929;
+    --message-bar-background: #1f1e1e;
+    --contact-message-background: #076344;
+    --user-message-background: linear-gradient(to right , #092a3a, #0a5b5e);
+    --private-chat-green: #033e55;
 }
 
 .light{
@@ -31,7 +30,6 @@
     --header-text: gray;
     --primary-green: #25D366;
     --primary-green-dark:#0fad79;
-    --chat-image: '../../img/whatsapp.jpg';
     --search-bar-backround: rgb(241, 240, 239);
     --message-bar-background: rgb(251, 251, 251);
     --contact-message-background: rgb(243, 243, 243);
