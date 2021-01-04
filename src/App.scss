@@ -8,10 +8,35 @@
 .dark{
     --background: var(--black);
     --text: var(--white);
+    --text-2: aliceblue;
+    --message-field-background: #e4e3e3;
+    --chat-description: rgb(229, 240, 224);
+    --header-text: gray;
+    --primary-green: #25D366;
+    --primary-green-dark:#0fad79;
+    --chat-image: '../../img/whatsapp.jpg';
+    --search-bar-backround: rgb(241, 240, 239);
+    --message-bar-background: rgb(251, 251, 251);
+    --contact-message-background: rgb(243, 243, 243);
+    --user-message-background: linear-gradient(to right , #2ebf91, #60a4c3);
+    --private-chat-green: #0fad79;
 }
 
 .light{
     --background: var(--white);
     --text: var(--black);
+    --text-2: aliceblue;
+    --message-field-background: #e4e3e3;
+    --chat-description: rgb(229, 240, 224);
+    --header-text: gray;
+    --primary-green: #25D366;
+    --primary-green-dark:#0fad79;
+    --chat-image: '../../img/whatsapp.jpg';
+    --search-bar-backround: rgb(241, 240, 239);
+    --message-bar-background: rgb(251, 251, 251);
+    --contact-message-background: rgb(243, 243, 243);
+    --user-message-background: linear-gradient(to right , #2ebf91, #60a4c3);
+    --private-chat-green: #0fad79;
+
 }
 

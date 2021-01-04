@@ -6,7 +6,7 @@ import { selectUser } from '../../features/userSlice'
 import { db,auth } from '../../firebase/firebase'
 import PrivateChats from '../privateChats/PrivateChats'
 import SidebarChat from '../sidebarChat/SidebarChat'
-import './Sidebar.scss'
+import './Sidebar.scss';
 
 /**
  * Get all chats of the respective id.
@@ -100,7 +100,7 @@ function Sidebar() {
                 {/* -----------------User Details here---------------- */}
                 <div className="sidebar-header-user-details">
                 
-                <div className="sidebar-avatar" onClick= {() => auth.signOut()}
+                <div className="sidebar-avatar" onClick= {() => auth.signOut()} /* --> users profile picture */
                     style={{backgroundImage:`url(${user.userImage})`}}>
                 </div>
                     <h1>{user.displayName}</h1>
@@ -122,13 +122,13 @@ function Sidebar() {
 
                 <div className="icon-buttons">
 
-                <IconButton onClick = {createChat} variant = 'outlined' className="sidebar-button">
+                <IconButton onClick = {createChat} variant = 'outlined' className="sidebar-button"> {/* ---> creates group chat */}
 
                     <Create   classes={{root: 'sidebar-button-icon'}}/>
 
                 </IconButton>
 
-                <IconButton onClick = {createPersonal} variant = 'outlined'  className="sidebar-button">
+                <IconButton onClick = {createPersonal} variant = 'outlined'  className="sidebar-button"> {/* ----> creates private chat */}
 
                     <ChatBubble  classes={{root: 'sidebar-button-icon'}}/>
 
@@ -137,13 +137,13 @@ function Sidebar() {
             </div>
             <div className="sidebar-chats">
                {chats.map((chat) => (
-                   <SidebarChat key = {chat.id} id = {chat.id} chatName = {chat.data.chatName}/>
+                   <SidebarChat key = {chat.id} id = {chat.id} chatName = {chat.data.chatName}/> /* ----> component for group chat  */
                )
 
                )}
                 {existingId.map(ids => {
                     if((user.uid === ids.uid1) || (user.uid === ids.uid2)){
-                        return <PrivateChats key={ids.id} id={ids.id} {...ids}/>;
+                        return <PrivateChats key={ids.id} id={ids.id} {...ids}/>; /* ----> component for private chat channel */
                     } else {
                         return null;
                     }

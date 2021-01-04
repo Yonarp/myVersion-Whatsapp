@@ -47,7 +47,7 @@ function PrivateChats({id,...ids}) {
         else {
             getContact(ids.uid1)
         }
-
+        /* fetching the chat messages through firebase  */
         db.collection('private_chats').doc(id).collection('messages').orderBy('timestamp' , 'desc').onSnapshot(snapshot => {
             setChatData(snapshot.docs.map(doc => (
                 doc.data()
@@ -65,7 +65,7 @@ function PrivateChats({id,...ids}) {
             </div>
             <div className="sidebar-chat-content">
             <h2>{contact.userName}</h2>
-            <h3>{chatData[0]?.message}</h3>
+            <h3>{chatData[0]?.message}</h3> {/* dispalying the last message in the chat */}
             <p>{new Date(chatData[0]?.timestamp?.toDate()).toLocaleString()}</p>
             </div>
         </div>

@@ -18,7 +18,8 @@
     &-message{
         box-shadow: 2px 2px 2px rgba($color: #000000, $alpha: .2);
         display: inline-block;
-        background: rgb(243, 243, 243);
+        background: var(--contact-message-background);
+        color: var(--text);
         padding: 1rem 1rem;
         font-size: 1.5rem;
         border-radius: 1.2rem 1.2rem 1.2rem 0rem;
@@ -40,8 +41,8 @@
     }
     &-message{
        
-        background: $chat-green;
-        color: aliceblue;
+        background: var(--user-message-background);
+        color: var(--text-2);
         border-radius: 1.2rem 1.2rem 0rem 1.2rem;
     }
    }

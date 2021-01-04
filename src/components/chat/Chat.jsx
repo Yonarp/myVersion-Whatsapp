@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import Message from '../message/Message';
 import './Chat.scss';
 import { selectUser } from '../../features/userSlice';
+import { selectDarkMode } from '../../features/darkModeSlice';
 
 
 function Chat() {
@@ -13,12 +14,15 @@ function Chat() {
     const chatId = useSelector(selectChatId);
     const isPrivate = useSelector(checkIfPrivate);
     const user = useSelector(selectUser);
+    const isDark = useSelector(selectDarkMode);
     const [input,setInput] = useState('')
     const [messages,setMessages] = useState([])
     const privateChat = 'Private Chat';
     const groupChat = 'Group Chat';
 
     const throwMessages = (collection) => {
+        /* this function pushes the message data on firebase collection: messages */
+
         db.collection(collection).doc(chatId).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             message: input,
@@ -32,6 +36,8 @@ function Chat() {
     useEffect(() => {
 
         const receiveMessages = (collection) => {
+            /* this function receives data from collection: messages */
+            
             db.collection(collection)
             .doc(chatId)
             .collection('messages')
@@ -82,7 +88,7 @@ function Chat() {
                 </div>
                 <h2>Details</h2>
             </div>
-            <div className="chat-messages">
+            <div className={`chat-messages ${isDark? 'chat-messages-dark': ''}`}>
                 {messages.map((message, idx) => (
                     <Message key = {message.id} data = {message.data} isLast={(idx === messages?.length - 1)}/>
                 ))}
