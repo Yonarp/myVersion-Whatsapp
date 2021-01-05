@@ -4,11 +4,13 @@
     --black: #000;
     --white: #fff;
 }
-
+*{
+    transition: background .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
 .dark{
     --background: #252323;
     --text: var(--white);
-    --text-2: aliceblue;
+    --text-2: rgb(227, 233, 232);
     --chat-description: #28c395;
     --header-text: gray;
     --primary-green: #076344;
@@ -35,6 +37,5 @@
     --contact-message-background: rgb(243, 243, 243);
     --user-message-background: linear-gradient(to right , #2ebf91, #60a4c3);
     --private-chat-green: #0fad79;
-
 }
 

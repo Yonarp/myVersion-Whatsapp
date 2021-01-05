@@ -39,7 +39,7 @@
     }
 
     &-messages{
-        background-image: url('../../img/whatsapp.jpg');
+        background: url('../../img/whatsapp.jpg');
         background-size: contain;
         flex: 1;
         overflow: scroll;
@@ -48,7 +48,8 @@
             display: none;
         }
         &-dark{
-            background-image: url('../../img/whatsapp_dark.jpg');
+            background: url('../../img/whatsapp_dark.jpg');
+            background-size: contain;
         }
     }
 

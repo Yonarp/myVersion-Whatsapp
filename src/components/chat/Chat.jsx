@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkIfPrivate, selectChatId, selectChatName } from '../../features/chatSlice';
 import { db } from '../../firebase/firebase';
 import firebase from 'firebase';
 import Message from '../message/Message';
 import './Chat.scss';
 import { selectUser } from '../../features/userSlice';
-import { selectDarkMode } from '../../features/darkModeSlice';
+import { selectDarkMode , setDark } from '../../features/darkModeSlice';
 
 
 function Chat() {
@@ -16,7 +16,8 @@ function Chat() {
     const user = useSelector(selectUser);
     const isDark = useSelector(selectDarkMode);
     const [input,setInput] = useState('')
-    const [messages,setMessages] = useState([])
+    const [messages,setMessages] = useState([]);
+    const dispatch = useDispatch()
     const privateChat = 'Private Chat';
     const groupChat = 'Group Chat';
 
@@ -31,6 +32,21 @@ function Chat() {
             userImage: user.userImage,
             email: user.email
         })
+    }
+
+    const toggleDark = () => {
+        if(isDark)
+        {
+            dispatch(setDark({
+                isDark: true
+            }))
+        }
+        else{
+            dispatch(setDark({
+                isDark: false
+            }))
+        }
+        console.log(isDark);
     }
     
     useEffect(() => {
@@ -86,7 +102,9 @@ function Chat() {
                 <h1>To:<span className='chat-header-contact'> {chatName} </span></h1>
                 <h2>{(isPrivate?privateChat:groupChat)}</h2>
                 </div>
-                <h2>Details</h2>
+                <div className="dark-mode-button" onClick= {toggleDark}>
+                    Toggle Dark
+                </div>
             </div>
             <div className={`chat-messages ${isDark? 'chat-messages-dark': ''}`}>
                 {messages.map((message, idx) => (
