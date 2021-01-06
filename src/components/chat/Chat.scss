@@ -40,7 +40,7 @@
 
     &-messages{
         background: url('../../img/whatsapp.jpg');
-        background-size: contain;
+        background-size: cover;
         flex: 1;
         overflow: scroll;
         scrollbar-width: none;
@@ -49,7 +49,8 @@
         }
         &-dark{
             background: url('../../img/whatsapp_dark.jpg');
-            background-size: contain;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     }
 

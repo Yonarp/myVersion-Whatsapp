@@ -9,19 +9,14 @@ import Messenger from './pages/messenger/Messenger';
 
 function App() {
    const user = useSelector(selectUser);
-   const isDark = useSelector(selectDarkMode);
    const dispatch = useDispatch();
 
-  /* A state to check if user has activated dark mode  */
+   
+   /* A state to check if user has activated dark mode  */
+   const isDark = useSelector(selectDarkMode);
    
 
-   let themeClassName = 'light';
-   
-   if(isDark){
-    themeClassName = 'dark';
-   } else {
-    themeClassName = 'light';
-   }
+/*    console.log('themeclassName =', themeClassName, '  valueOfIsDark ==' , isDark); */
    
    useEffect(() => {
      /* Fetching the user through Firebase and storing it locally in redux */
@@ -52,10 +47,11 @@ function App() {
   
    },[dispatch]);
   return (
-    <div className={`App ${themeClassName}`}>
+    <div className={`App ${isDark? 'dark' : 'light'}`}>
       {
         /* if user is not logged in we render the log in page  */
        user ? <Messenger/>:<Login/>
+
       }
     </div>
   );
@@ -63,4 +59,4 @@ function App() {
 
 export default App;
 
-// users =>
+

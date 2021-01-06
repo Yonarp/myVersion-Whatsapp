@@ -34,20 +34,6 @@ function Chat() {
         })
     }
 
-    const toggleDark = () => {
-        if(isDark)
-        {
-            dispatch(setDark({
-                isDark: true
-            }))
-        }
-        else{
-            dispatch(setDark({
-                isDark: false
-            }))
-        }
-        console.log(isDark);
-    }
     
     useEffect(() => {
 
@@ -102,9 +88,7 @@ function Chat() {
                 <h1>To:<span className='chat-header-contact'> {chatName} </span></h1>
                 <h2>{(isPrivate?privateChat:groupChat)}</h2>
                 </div>
-                <div className="dark-mode-button" onClick= {toggleDark}>
-                    Toggle Dark
-                </div>
+                <button className = 'theme-toggle-button' onClick = { () => dispatch(setDark(!isDark)) } > Dark Mode</button>
             </div>
             <div className={`chat-messages ${isDark? 'chat-messages-dark': ''}`}>
                 {messages.map((message, idx) => (
