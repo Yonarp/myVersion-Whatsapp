@@ -6,7 +6,8 @@ import firebase from 'firebase';
 import Message from '../message/Message';
 import './Chat.scss';
 import { selectUser } from '../../features/userSlice';
-import { selectDarkMode , setDark } from '../../features/darkModeSlice';
+import { selectDarkMode , } from '../../features/darkModeSlice';
+import DarkThemeToggle from '../darkThemeToggle/DarkThemeToggle';
 
 
 function Chat() {
@@ -17,7 +18,6 @@ function Chat() {
     const isDark = useSelector(selectDarkMode);
     const [input,setInput] = useState('')
     const [messages,setMessages] = useState([]);
-    const dispatch = useDispatch()
     const privateChat = 'Private Chat';
     const groupChat = 'Group Chat';
 
@@ -88,7 +88,7 @@ function Chat() {
                 <h1>To:<span className='chat-header-contact'> {chatName} </span></h1>
                 <h2>{(isPrivate?privateChat:groupChat)}</h2>
                 </div>
-                <button className = 'theme-toggle-button' onClick = { () => dispatch(setDark(!isDark)) } > Dark Mode</button>
+                <DarkThemeToggle/>
             </div>
             <div className={`chat-messages ${isDark? 'chat-messages-dark': ''}`}>
                 {messages.map((message, idx) => (

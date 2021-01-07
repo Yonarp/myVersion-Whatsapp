@@ -30,7 +30,7 @@ function App() {
         }));
 
 
-        /* Making a user collection in firebase and fetching it */
+        /* Making a user collection in firebase  */
         db.collection('users').doc(authUser.uid).set({
           displayName: authUser.displayName,
           uid:authUser.uid,
