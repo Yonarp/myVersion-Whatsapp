@@ -1,0 +1,96 @@
+#dark-theme-checkbox{
+    display: none;
+
+    &:checked + .dark-theme-button{
+        background: black;
+       .circle{
+           left: 50%;
+           transform: rotate(90deg);
+          
+           &-main{
+               background: aliceblue;
+               border: 2px solid #E0E3C4;
+           }
+           &-secondary,&-secondary-2 , &-secondary-3{
+               transform: scale(1);
+           }
+       }
+    }
+
+}
+
+
+.dark-theme-button{
+    display: inline-block;
+    width: 10rem;
+    height: 4rem;
+    background: rgb(164, 216, 236);
+    border-radius: 10rem;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid gray;
+
+    .circle{
+        position: absolute;
+        top: 5%;
+        left: 10%;
+        transition: all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        overflow: hidden;
+         &-main{
+            position: relative;
+            display: inline-block; 
+            height: 3.5rem;
+            width: 3.5rem;
+            border: 2px solid orange;
+            background: rgb(245, 245, 98);
+            border-radius: 50%;
+            transition: all .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        &-secondary{
+            transition: all .5s ease-in-out;
+            display: inline-block;
+            z-index: 99;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 30%;
+            top: 60%;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+            border: 1px solid #cbceb0 ;
+            background: #E0E3C4;
+            transform: scale(0);
+            &-2{
+                transition: all .5s ease-in-out;
+                display: inline-block;
+                z-index: 99;
+                position: absolute;
+                transform: translate(-50%,-50%);
+                left: 70%;
+                top: 30%;
+                height: .7rem;
+                width: .7rem;
+                border-radius: 50%;
+                border: 1px solid #cbceb0;
+                background: #E0E3C4;
+                transform: scale(0);
+            }
+            &-3{
+                transition: all .5s ease-in-out;
+                display: inline-block;
+                z-index: 99;
+                position: absolute;
+                top: 20%;
+                left: 14%;
+                transform: translate(-50%,-50%);
+                height: .5rem;
+                width: .5rem;
+                border-radius: 50%;
+                border: 1px solid #cbceb0;
+                background: #E0E3C4;
+                transform: scale(0);
+
+            }
+        }
+    }
+}
